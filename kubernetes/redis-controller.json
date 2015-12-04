@@ -1,0 +1,18 @@
+{ "kind":"ReplicationController",
+   "apiVersion":"v1",
+   "metadata":{ "name":"redis-controller" },
+   "spec":{
+      "replicas":1,
+      "selector":{ "name":"redis-pod" },
+      "template":{
+         "metadata":{
+            "labels":{ "name":"redis-pod" }
+         },
+         "spec":{
+            "containers":[ {
+                  "name":"redis",
+                  "image":"redis:3",
+                  "ports":[ {
+                        "containerPort":6379,
+                        "protocol":"TCP"
+                     } ] } ] } } } }

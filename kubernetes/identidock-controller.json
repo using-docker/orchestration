@@ -1,0 +1,17 @@
+{ "kind":"ReplicationController",
+   "apiVersion":"v1",
+   "metadata":{ "name":"identidock-controller" },
+   "spec":{
+      "replicas":1,
+      "selector":{ "name":"identidock-pod" },
+      "template":{
+         "metadata":{
+            "labels":{ "name":"identidock-pod" } },
+         "spec":{
+            "containers":[ {
+                  "name":"identidock",
+                  "image":"amouat/identidock:1.0",
+                  "ports":[ {
+                        "containerPort":9090,
+                        "protocol":"TCP"
+                     } ] } ] } } } }

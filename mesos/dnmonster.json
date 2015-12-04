@@ -1,0 +1,16 @@
+{
+    "id": "dnmonster",
+    "container": {
+      "docker": {
+        "image": "amouat/dnmonster:1.0",
+        "network": "BRIDGE",
+        "portMappings": [
+          {"containerPort": 8080, "hostPort": 8080}
+        ]
+
+      }
+    },
+    "cpus": 0.3,
+    "mem": 200.0,
+    "instances": 1
+}

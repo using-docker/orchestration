@@ -1,0 +1,11 @@
+{ "kind":"Service",
+   "apiVersion":"v1",
+   "metadata":{ "name":"dnmonster" },
+   "spec":{
+      "ports": [ {
+          "port":8080,
+          "targetPort":8080,
+          "protocol":"TCP"
+        } ],
+      "selector":{ "name":"dnmonster-pod" }
+   } }

@@ -1,0 +1,16 @@
+[Unit]
+Description=SkyDNS
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill dns
+ExecStartPre=-/usr/bin/docker rm dns
+ExecStartPre=/usr/bin/docker pull skynetservices/skydns:2.5.2b
+ExecStart=/usr/bin/env bash -c "IP=$(/usr/bin/ip -o -4 addr list docker0 \
+  | awk '{print $4}' | cut -d/ -f1) \
+  && docker run --name dns -e ETCD_MACHINES=http://$IP:2379 \
+     skynetservices/skydns:2.5.2b"
+ExecStop=/usr/bin/docker stop dns
+
+[X-Fleet]
+Global=true

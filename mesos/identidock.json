@@ -1,0 +1,25 @@
+{
+    "id": "identidock", 
+    "container": {
+      "docker": {
+        "image": "amouat/identidock:1.0",
+        "network": "BRIDGE",
+        "portMappings": [
+          {"containerPort": 9090, "hostPort": 80}
+        ]
+
+      }
+    },
+    "cpus": 0.3,
+    "mem": 200.0,
+    "instances": 1,
+    "healthChecks": [
+        {
+            "protocol": "HTTP",
+            "path": "/",
+            "gracePeriodSeconds": 3,
+            "intervalSeconds": 10,
+            "timeoutSeconds": 10,
+            "maxConsecutiveFailures": 3
+        }]
+}

@@ -1,0 +1,12 @@
+[Unit]
+Description=identidock
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill identidock
+ExecStartPre=-/usr/bin/docker rm identidock
+ExecStartPre=/usr/bin/docker pull amouat/identidock:1.0
+ExecStart=/usr/bin/env bash -c "docker run --name identidock --link dns \
+  --dns $(docker inspect -f {{.NetworkSettings.IPAddress}} dns) \
+  --dns-search identidock.local amouat/identidock:1.0"
+ExecStop=/usr/bin/docker stop identidock

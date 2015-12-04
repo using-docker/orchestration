@@ -1,0 +1,17 @@
+{ "kind":"ReplicationController",
+   "apiVersion":"v1",
+   "metadata":{ "name":"dnmonster-controller" },
+   "spec":{
+      "replicas":1,
+      "selector":{ "name":"dnmonster-pod" },
+      "template":{
+         "metadata":{
+            "labels":{ "name":"dnmonster-pod" } },
+         "spec":{
+            "containers":[ { 
+                  "name":"dnmonster",
+                  "image":"amouat/dnmonster:1.0",
+                  "ports":[ { 
+                        "containerPort":8080,
+                        "protocol":"TCP"
+                     } ] } ] } } } }

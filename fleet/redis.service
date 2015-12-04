@@ -1,0 +1,17 @@
+[Unit]
+Description=Redis
+After=docker.service
+Requires=docker.service
+After=flanneld.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill redis
+ExecStartPre=-/usr/bin/docker rm redis
+ExecStartPre=/usr/bin/docker pull redis:3
+ExecStart=/usr/bin/docker run --name redis redis:3
+ExecStartPost=/usr/bin/env bash -c 'sleep 2 \
+  && IP=$(docker inspect -f {{.NetworkSettings.IPAddress}} redis) \
+  && etcdctl set /skydns/local/identidock/redis \
+     "{\\"host\\":\\"$IP\\",\\"port\\":6379}"'
+ExecStop=/usr/bin/docker stop redis

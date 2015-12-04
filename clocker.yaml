@@ -1,0 +1,22 @@
+id: identidock
+name: "Identidock"
+location: my-docker-cloud
+services:
+- type: docker:redis:3
+  name: redis
+  id: redis
+  openPorts:
+  - 6379
+- type: docker:amouat/dnmonster:1.0
+  name: dnmonster
+  id: dnmonster
+  openPorts:
+  - 8080
+- type: docker:amouat/identidock:1.0
+  name: identidock
+  id: identidock
+  portBindings:
+    80: 9090
+  links:
+  - $brooklyn:component("redis")
+  - $brooklyn:component("dnmonster")
